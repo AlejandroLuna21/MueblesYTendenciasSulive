@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.Carpinteria;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +41,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private VentanaPersonal vPersonal;
     private VentanaCliente vCliente;
     private VentanaCarpinteria vCarpinteria;
+    private Carpinteria c;
     public MenuPrincipal() {
         super();
         configurarVentana();
@@ -110,12 +112,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         if (ae.getSource()== miCliente){
             vCliente = new VentanaCliente();
             this.contenedor.add(vCliente);
-            vCliente.show();
+            vCliente.setVisible(true);
         }
         if (ae.getSource()==miCarpinteria){
             vCarpinteria= new VentanaCarpinteria();
             this.contenedor.add(vCarpinteria);
-            vCarpinteria.show();
             
         }
     }

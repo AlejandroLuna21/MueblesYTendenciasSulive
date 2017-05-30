@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Alejandro Machaca Luna
  */
 public class VentanaCliente extends JInternalFrame {
-
+    
     private JLabel lblTitle;
     private JLabel lblName;
     private JLabel lblFLN;
@@ -45,7 +45,7 @@ public class VentanaCliente extends JInternalFrame {
     private JTextField txtIc;
     private JButton btnSave;
     private JButton btnCancel;
-
+    
     private JTextField txtBuscar;
     private JButton btnBuscar;
     private DefaultTableModel modelo;
@@ -56,7 +56,7 @@ public class VentanaCliente extends JInternalFrame {
     private JPanel contenedor;
     private JButton btnModificar;
     private JButton btnEliminar;
-
+    
     private JLabel lblTitulo;
     private JLabel lblNombre;
     private JLabel lblApP;
@@ -81,12 +81,12 @@ public class VentanaCliente extends JInternalFrame {
     private JTextField txtEmail;
     private JButton btnActualizar;
     private JButton btnCancelar;
-
+    
     public VentanaCliente() {
         configurarVentana();
         inicializarComponentes();
     }
-
+    
     private void configurarVentana() {
         this.setTitle("C L I E N T E");
         this.setSize(1920, 1080);
@@ -94,9 +94,9 @@ public class VentanaCliente extends JInternalFrame {
         this.setClosable(true);
         this.setResizable(false);
     }
-
+    
     private void inicializarComponentes() {
-
+        
         lblTitle = new JLabel();
         lblTitle.setText("Registrar Nuevo Cliente:");
         lblTitle.setBounds(50, 50, 150, 25);
@@ -129,7 +129,8 @@ public class VentanaCliente extends JInternalFrame {
         txtIc = new JTextField();
         txtIc.setBounds(250, 250, 200, 25);
         this.add(txtIc);
-        btnSave = new JButton();
+//        btnSave = new JButton();
+        this.setBtnSave(new JButton());
         btnSave.setText("GUARDAR");
         btnSave.setBounds(50, 300, 180, 50);
         this.add(btnSave);
@@ -137,7 +138,7 @@ public class VentanaCliente extends JInternalFrame {
         btnCancel.setText("CANCELAR");
         btnCancel.setBounds(270, 300, 180, 50);
         this.add(btnCancel);
-
+        
         txtBuscar = new JTextField();
         txtBuscar.setBorder(BorderFactory.createTitledBorder("ingrese el id del personal que desea buscar:"));
         txtBuscar.setBounds(600, 50, 470, 45);
@@ -147,7 +148,7 @@ public class VentanaCliente extends JInternalFrame {
         btnBuscar.setBounds(600, 100, 470, 50);
         this.add(btnBuscar);
         modelo = new DefaultTableModel();
-        modelo.addColumn("Id_Nombre");
+        modelo.addColumn("Id_Cliente");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido Materno");
         modelo.addColumn("Apellido Paterno");
@@ -170,7 +171,7 @@ public class VentanaCliente extends JInternalFrame {
         btnEliminar.setText("E L I M I N A R");
         btnEliminar.setBounds(865, 700, 200, 50);
         this.add(btnEliminar);
-
+        
         lblTitulo = new JLabel();
         lblTitulo.setText("Actulizar Datos de Cliente:");
         lblTitulo.setBounds(1150, 50, 150, 25);
@@ -219,7 +220,7 @@ public class VentanaCliente extends JInternalFrame {
         lblEmail.setText("Email:");
         lblEmail.setBounds(1200, 520, 100, 25);
         this.add(lblEmail);
-
+        
         txtNombre = new JTextField();
         txtNombre.setBounds(1350, 100, 200, 25);
         this.add(txtNombre);
@@ -259,232 +260,233 @@ public class VentanaCliente extends JInternalFrame {
         btnCancelar.setBounds(1465, 600, 180, 50);
         this.add(btnCancelar);
     }
-
+    
     public JTextField getTxtName() {
         return txtName;
     }
-
+    
     public void setTxtName(JTextField txtName) {
         this.txtName = txtName;
     }
-
+    
     public JTextField getTxtFLN() {
         return txtFLN;
     }
-
+    
     public void setTxtFLN(JTextField txtFLN) {
         this.txtFLN = txtFLN;
     }
-
+    
     public JTextField getTxtSLN() {
         return txtSLN;
     }
-
+    
     public void setTxtSLN(JTextField txtSLN) {
         this.txtSLN = txtSLN;
     }
-
+    
     public JTextField getTxtIc() {
         return txtIc;
     }
-
+    
     public void setTxtIc(JTextField txtIc) {
         this.txtIc = txtIc;
     }
-
+    
     public JButton getBtnSave() {
         return btnSave;
     }
-
+    
     public void setBtnSave(JButton btnSave) {
         this.btnSave = btnSave;
     }
-
+    
     public JButton getBtnCancel() {
         return btnCancel;
     }
-
+    
     public void setBtnCancel(JButton btnCancel) {
         this.btnCancel = btnCancel;
     }
-
+    
     public JTextField getTxtBuscar() {
         return txtBuscar;
     }
-
+    
     public void setTxtBuscar(JTextField txtBuscar) {
         this.txtBuscar = txtBuscar;
     }
-
+    
     public JButton getBtnBuscar() {
         return btnBuscar;
     }
-
+    
     public void setBtnBuscar(JButton btnBuscar) {
         this.btnBuscar = btnBuscar;
     }
-
+    
     public DefaultTableModel getModelo() {
         return modelo;
     }
-
+    
     public void setModelo(DefaultTableModel modelo) {
         this.modelo = modelo;
     }
-
+    
     public JTable getTabla() {
         return tabla;
     }
-
+    
     public void setTabla(JTable tabla) {
         this.tabla = tabla;
     }
-
+    
     public JPopupMenu getpEmergente() {
         return pEmergente;
     }
-
+    
     public void setpEmergente(JPopupMenu pEmergente) {
         this.pEmergente = pEmergente;
     }
-
+    
     public JMenuItem getmI() {
         return mI;
     }
-
+    
     public void setmI(JMenuItem mI) {
         this.mI = mI;
     }
-
+    
     public JScrollPane getScroll() {
         return scroll;
     }
-
+    
     public void setScroll(JScrollPane scroll) {
         this.scroll = scroll;
     }
-
+    
     public JPanel getContenedor() {
         return contenedor;
     }
-
+    
     public void setContenedor(JPanel contenedor) {
         this.contenedor = contenedor;
     }
-
+    
     public JButton getBtnModificar() {
         return btnModificar;
     }
-
+    
     public void setBtnModificar(JButton btnModificar) {
         this.btnModificar = btnModificar;
     }
-
+    
     public JButton getBtnEliminar() {
         return btnEliminar;
     }
-
+    
     public void setBtnEliminar(JButton btnEliminar) {
         this.btnEliminar = btnEliminar;
     }
-
+    
     public JTextField getTxtNombre() {
         return txtNombre;
     }
-
+    
     public void setTxtNombre(JTextField txtNombre) {
         this.txtNombre = txtNombre;
     }
-
+    
     public JTextField getTxtApP() {
         return txtApP;
     }
-
+    
     public void setTxtApP(JTextField txtApP) {
         this.txtApP = txtApP;
     }
-
+    
     public JTextField getTxtApM() {
         return txtApM;
     }
-
+    
     public void setTxtApM(JTextField txtApM) {
         this.txtApM = txtApM;
     }
-
+    
     public JTextField getTxtCi() {
         return txtCi;
     }
-
+    
     public void setTxtCi(JTextField txtCi) {
         this.txtCi = txtCi;
     }
-
+    
     public JDateChooser getDteFechaN() {
         return DteFechaN;
     }
-
+    
     public void setDteFechaN(JDateChooser DteFechaN) {
         this.DteFechaN = DteFechaN;
     }
-
+    
     public JTextField getTxtTelf() {
         return txtTelf;
     }
-
+    
     public void setTxtTelf(JTextField txtTelf) {
         this.txtTelf = txtTelf;
     }
-
+    
     public JTextField getTxtAoC() {
         return txtAoC;
     }
-
+    
     public void setTxtAoC(JTextField txtAoC) {
         this.txtAoC = txtAoC;
     }
-
+    
     public JTextField getTxtAoCC() {
         return txtAoCC;
     }
-
+    
     public void setTxtAoCC(JTextField txtAoCC) {
         this.txtAoCC = txtAoCC;
     }
-
+    
     public JTextField getTxtNC() {
         return txtNC;
     }
-
+    
     public void setTxtNC(JTextField txtNC) {
         this.txtNC = txtNC;
     }
-
+    
     public JTextField getTxtEmail() {
         return txtEmail;
     }
-
+    
     public void setTxtEmail(JTextField txtEmail) {
         this.txtEmail = txtEmail;
     }
-
+    
     public JButton getBtnActualizar() {
         return btnActualizar;
     }
-
+    
     public void setBtnActualizar(JButton btnActualizar) {
         this.btnActualizar = btnActualizar;
     }
-
+    
     public JButton getBtnCancelar() {
         return btnCancelar;
     }
-
+    
     public void setBtnCancelar(JButton btnCancelar) {
         this.btnCancelar = btnCancelar;
     }
+
     //
-    public void btnSaveSetActionListener(ActionListener actionL){
-        this.btnSave.addActionListener(actionL);
+    public void btnSaveSetActionListener(ActionListener actionL) {
+        this.getBtnSave().addActionListener(actionL);
     }
 }

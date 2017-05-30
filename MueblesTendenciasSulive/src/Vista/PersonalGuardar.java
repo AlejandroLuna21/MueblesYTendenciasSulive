@@ -223,6 +223,7 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         this.add(btnCancelar);
     }
 
+    
     public void getDatos() {
         p1 = new Personal();
         mP1 = new MetodoPersonal();

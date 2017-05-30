@@ -31,13 +31,16 @@ public class MueblesTendenciasSulive {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
+//        
         MenuPrincipal v2 = new MenuPrincipal();
         v2.setVisible(true);
         
         VentanaCliente vC = new VentanaCliente();
         MetodoCliente mC = new MetodoCliente();
         Cliente c = new Cliente(vC,mC);
+        
+         Carpinteria carp = new Carpinteria();
+//            carp.inicializar();
         
     }
     
