@@ -243,6 +243,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         btnCancelar = new JButton();
         btnCancelar.setText("CANCELAR");
         btnCancelar.setBounds(1500, 350, 180, 50);
+        btnCancelar.addActionListener(this);
         this.add(btnCancelar);
     }
 
@@ -503,7 +504,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             tabla.setModel(modelo);
         } catch (SQLException e) {
 
-            System.out.println("Ocurrio un error al obtner los datos de personal" + e);
+            System.out.println("Ocurrio un error al obtener los datos de personal" + e);
         }
     }
 
@@ -523,6 +524,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             }
 
         } catch (Exception e) {
+            System.out.println("Ocurrio un error!!" + e);
         }
     }
     public void getAndSetActualizar(){
@@ -588,6 +590,9 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             delete();
             actualizarTabla();
             mostrarDatos(0);
+        }
+        if (ae.getSource()== btnCancelar){
+            clear();
         }
     }
 }

@@ -361,30 +361,6 @@ public class PersonalModificar extends JPanel implements ActionListener {
             System.out.println("Algo Salio mal!!!" + e);
         }
 
-        //Modificando
-//        if (fila>=0){
-//            p.setIdPer((int) tabla.getValueAt(fila, 0));
-//            System.out.println("su id es :"+p.getIdPer());
-//            mp.buscarDate(p);
-//            txtNombre.setText(p.getNombre());
-//            txtApellidoPaterno.setText(p.getAp());
-//            txtApellidoMaterno.setText(p.getAm());
-//            System.out.println("formato"+p.getFN());
-//            //Modificando
-//            try {
-//                String fecha="1995-11-12";
-//            SimpleDateFormat formato= new SimpleDateFormat("yyyy-MM-dd");
-//            Date fechaDate= formato.parse(p.getFN());
-//            dcInicio.guardarDate(fechaDate);
-//            } catch (ParseException e) {
-//                
-//                System.out.println("Algo Salio mal!!!"+e);
-//            }
-//            
-//            //Modificando
-//        }else{
-//            JOptionPane.showMessageDialog(null, "No selecciono ninguna fila");
-//        }
     }
 
     public void actualizar() {

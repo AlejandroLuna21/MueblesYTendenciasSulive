@@ -14,20 +14,12 @@
  */
 package Controlador;
 
-import Modelo.MetodoCliente;
-import Vista.VentanaCliente;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Alejandro Machaca Luna
  */
 public class Cliente {
 
-    private final VentanaCliente vC;
-    private final MetodoCliente mC;
     private int idCli;
     private String nom;
     private String apP;
@@ -38,10 +30,8 @@ public class Cliente {
     private String dir;
     private String email;
 
-    public Cliente(VentanaCliente vC, MetodoCliente mC) {
-        this.vC = vC;
-        this.mC = mC;
-        this.vC.btnSaveSetActionListener(new ActionListenerBtnSave());
+    public Cliente() {
+
     }
 
     public int getIdCli() {
@@ -114,24 +104,5 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    class ActionListenerBtnSave implements ActionListener {
-
-//        @Override
-//        public void actionPerformed(ActionEvent ae) {
-//            
-//            idCli=Integer.parseInt(vC.getTxtName().getText());
-//            System.out.println(idCli);
-//            
-//            nom = vC.getTxtName().getText();
-//            System.out.println(nom);
-//            System.out.println("Si Llega");
-//            System.out.println(vC.getTxtName().getText());
-//        }
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            System.out.println("hola");
-        }
     }
 }

@@ -26,7 +26,8 @@ public class MetodoCarpinteria {
     
     public void dataSave(Carpinteria c){
         try {
-            pst = conn.prepareStatement("INSERT INTO carpinteria(nombre,telefono,nit,direccion) VALUES(?,?,?,?)");
+            pst = conn.prepareStatement("INSERT INTO carpinteria(nombre,telefono,"
+                    + "nit,direccion) VALUES(?,?,?,?)");
             pst.setString(1, c.getNom());
             pst.setInt(2, c.getTelf());
             pst.setInt(3, c.getNit());
