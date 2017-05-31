@@ -200,6 +200,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         btnEliminar = new JButton();
         btnEliminar.setText("E L I M I N A R");
         btnEliminar.setBounds(1010, 700, 200, 50);
+        btnEliminar.addActionListener(this);
         this.add(btnEliminar);
 
         lblTitulo = new JLabel();
@@ -444,6 +445,11 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         txtAoC.setText("");
         txtAoCC.setText("");
         txtNC.setText("");
+        //Componentes 3
+        txtNom.setText("");
+        txtTelf.setText("");
+        txtNit.setText("");
+        txtDir.setText("");
     }
     public void actualizarTabla() {
         int sizeModel = modelo.getRowCount();
@@ -462,7 +468,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         c.setNit(Integer.parseInt(txtTin.getText()));
         c.setDir(txtAoC.getText() + " entre " + txtAoCC.getText() + " N° " + txtNC.getText());
         try {
-            mC.dateSave(c);
+            mC.dataSave(c);
             JOptionPane.showMessageDialog(null, "Se Guardo Correctamente los Datos");
 
         } catch (HeadlessException e) {
@@ -509,7 +515,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             if (fila >= 0) {
                 id_aux = (int) tabla.getValueAt(fila, 0);
                 c.setId_Carp((int) tabla.getValueAt(fila, 0));
-                mC.dateBuscar(c);
+                mC.dataSearch(c);
                 txtNom.setText(c.getNom());
                 txtTelf.setText(String.valueOf(c.getTelf()));
                 txtNit.setText(String.valueOf(c.getNit()));
@@ -517,6 +523,36 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             }
 
         } catch (Exception e) {
+        }
+    }
+    public void getAndSetActualizar(){
+        c = new Carpinteria();
+        mC = new MetodoCarpinteria();
+        c.setId_Carp(id_aux);
+        c.setNom(txtNom.getText());
+        c.setTelf(Integer.parseInt(txtTelf.getText()));
+        c.setNit(Integer.parseInt(txtNit.getText()));
+        c.setDir(txtDir.getText());
+        try {
+            mC.dataUpdate(c);
+            JOptionPane.showMessageDialog(null, "Se actualizo Correctamente los Datos");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos" + e);
+        }
+    }
+    public void delete(){
+        c = new Carpinteria();
+        mC = new MetodoCarpinteria();
+        int fila= tabla.getSelectedRow();
+        try {
+            if(fila>=0){
+                c.setId_Carp((int) tabla.getValueAt(fila, 0));
+                mC.dataDelete(c);
+            }else{
+                JOptionPane.showMessageDialog(null, "No selecciono ninguna fila");
+            }
+        } catch (HeadlessException e) {
+            System.out.println("Algo Salio mal!!!" + e);
         }
     }
 
@@ -543,7 +579,15 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
             mostrarDatos(0);
         }
         if (ae.getSource()==btnActualizar){
-            
+            getAndSetActualizar();
+            clear();
+            actualizarTabla();
+            mostrarDatos(0);
+        }
+        if ((ae.getSource()==btnEliminar)||(ae.getSource()==mIElim)){
+            delete();
+            actualizarTabla();
+            mostrarDatos(0);
         }
     }
 }

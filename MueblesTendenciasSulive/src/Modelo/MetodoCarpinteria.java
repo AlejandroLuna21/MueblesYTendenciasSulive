@@ -24,7 +24,7 @@ public class MetodoCarpinteria {
     PreparedStatement pst;
     
     
-    public void dateSave(Carpinteria c){
+    public void dataSave(Carpinteria c){
         try {
             pst = conn.prepareStatement("INSERT INTO carpinteria(nombre,telefono,nit,direccion) VALUES(?,?,?,?)");
             pst.setString(1, c.getNom());
@@ -39,7 +39,7 @@ public class MetodoCarpinteria {
             JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
         }
     }
-    public void dateBuscar(Carpinteria c){
+    public void dataSearch(Carpinteria c){
         try {
 
             Statement st = conn.createStatement();
@@ -59,11 +59,25 @@ public class MetodoCarpinteria {
             System.out.println("Ocurrio un error al obtener los datos de personal" + e);
         }
     }
-     public void actualizarDate(Carpinteria c){
+     public void dataUpdate(Carpinteria c){
          try {
-            pst = conn.prepareStatement("UPDATE carpinteria SET nombre='"+c.getNom()+",'"); 
+            pst = conn.prepareStatement("UPDATE carpinteria SET nombre='"
+                    +c.getNom()+"',telefono='"+c.getTelf()+"',nit='"+c.getNit()
+                    +"',direccion='"+c.getDir()+"'WHERE id_carpinteria='"
+                    +c.getId_Carp()+"'");
+            
+            pst.executeUpdate();
          } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Error" + e);
          }
          
+     }
+     public void dataDelete(Carpinteria c){
+         try {
+             pst = conn.prepareStatement("DELETE FROM carpinteria WHERE id_carpinteria='"+c.getId_Carp()+"'");
+             pst.executeUpdate();
+         } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Error" + e);
+         }
      }
 }
