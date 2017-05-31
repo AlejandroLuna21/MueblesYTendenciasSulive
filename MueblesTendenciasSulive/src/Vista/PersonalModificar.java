@@ -386,7 +386,7 @@ public class PersonalModificar extends JPanel implements ActionListener {
         p.setIdTipPer((cbxCargo.getSelectedIndex() + 1));//Pendiente
         try {
             mp.actualizarDate(p);
-            JOptionPane.showMessageDialog(null, "Se actualizo Correctamente los Datos");
+            System.out.println("Se actualizo Correctamente los Datos");
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos" + e);
         }
@@ -443,6 +443,9 @@ public class PersonalModificar extends JPanel implements ActionListener {
             clearComponentes();
             actualizarTabla();
             mostrarDatos(0);
+        }
+        if(ae.getSource()==btnCancelar){
+            clearComponentes();
         }
     }
 }

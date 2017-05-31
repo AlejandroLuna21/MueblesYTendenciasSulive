@@ -251,7 +251,7 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         p1.setIdTipPer((cbxCargo.getSelectedIndex() + 1));//Pendiente
         try {
             mP1.guardarDate(p1);
-            JOptionPane.showMessageDialog(null, "Se Guardo Correctamente los Datos");
+            System.out.println("Se Guardo Correctamente los Datos");
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
         }
@@ -298,17 +298,11 @@ public class PersonalGuardar extends JPanel implements ActionListener {
             clearComponentes();
             pe = new PersonalEliminar();
             pe.actualizarTabla();
-//            pe.mostrarDatos();
-//            pe.removeAll();
-//            pe.show();
-//            p.updateUI();
-//            pe.updateUI();
-//            pe.update(grphcs);
-//            pe.modelo.fireTableChanged
+
 
         }
         if (ae.getSource() == btnCancelar) {
-//            clearComponentes();
+            clearComponentes();
             pe = new PersonalEliminar();
             pe.actualizarTabla();
         }

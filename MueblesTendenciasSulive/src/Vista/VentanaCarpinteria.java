@@ -95,7 +95,6 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         this.setLayout(null);
         this.setClosable(true);
         this.setResizable(false);
-        this.setVisible(true);
     }
 
     private void inicializarComponentes() {
@@ -470,7 +469,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         c.setDir(txtAoC.getText() + " entre " + txtAoCC.getText() + " N° " + txtNC.getText());
         try {
             mC.dataSave(c);
-            JOptionPane.showMessageDialog(null, "Se Guardo Correctamente los Datos");
+            System.out.println("Se Guardo Correctamente los Datos");
 
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
@@ -537,7 +536,7 @@ public class VentanaCarpinteria extends JInternalFrame implements ActionListener
         c.setDir(txtDir.getText());
         try {
             mC.dataUpdate(c);
-            JOptionPane.showMessageDialog(null, "Se actualizo Correctamente los Datos");
+            System.out.println("Se actualizo Correctamente los Datos");
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos" + e);
         }

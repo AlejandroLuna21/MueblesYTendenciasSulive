@@ -117,7 +117,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         if (ae.getSource()==miCarpinteria){
             vCarpinteria= new VentanaCarpinteria();
             this.contenedor.add(vCarpinteria);
-            
+            vCarpinteria.setVisible(true);
         }
     }
 }

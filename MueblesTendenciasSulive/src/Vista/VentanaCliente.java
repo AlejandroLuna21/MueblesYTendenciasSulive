@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -102,6 +103,9 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
     private int id_aux;
     private SimpleDateFormat formato;
     private Date fechaN;
+    private int anio;
+    private int mes;
+    private int dia;
 
     private Cliente cl;
     private MetodoCliente mC;
@@ -538,6 +542,25 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
         txtNC.setText("");
     }
 
+    public void clearTxtUpdata() {
+        cl = new Cliente();
+        txtNombre.setText("");
+        txtApP.setText("");
+        txtApM.setText("");
+        txtCi.setText("");
+        DteFechaN.setCalendar(null);
+        txtTelf.setText("");
+        txtDir.setText("");
+        txtEmail.setText("");
+//        cl.setfN(null);
+//        cl.setTelf(0);
+//        cl.setEmail(null);
+//        formato=null;
+//        dia=0;
+//        mes=0;
+//        anio=0;
+    }
+
     public void actualizarTabla() {
         int sizeModel = modelo.getRowCount();
         System.out.println("Aqui no llego" + sizeModel);
@@ -556,7 +579,7 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
         cl.setDir(txtAoC.getText() + " entre " + txtAoCC.getText() + " N° " + txtNC.getText());
         try {
             mC.dataSave(cl);
-            JOptionPane.showMessageDialog(null, "Se Guardo Correctamente los Datos");
+            System.out.println("Se Guardo Correctamente los Datos");
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
         }
@@ -614,15 +637,25 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
                     } catch (ParseException e) {
                         System.out.println("No Ocurrio un error!!!!" + e);
                     }
+                }else{
+                    DteFechaN.setDate(null);
                 }
                 if (cl.getTelf() != 0) {
                     txtTelf.setText(String.valueOf(cl.getTelf()));
+                }else{
+                    txtTelf.setText("");
                 }
                 txtDir.setText(cl.getDir());
                 if (cl.getEmail() != null) {
                     txtEmail.setText(cl.getEmail());
+                }else{
+                    txtEmail.setText("");
                 }
             }
+            cl.setfN(null);
+            cl.setTelf(0);
+            cl.setEmail(null);
+            fechaN=null;
         } catch (Exception e) {
             System.out.println("Ocurrio un error!!!!" + e);
         }
@@ -631,6 +664,39 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
     public void getAndSetActualizar() {
         cl = new Cliente();
         mC = new MetodoCliente();
+        cl.setIdCli(id_aux);
+        cl.setNom(txtNombre.getText());
+        cl.setApP(txtApP.getText());
+        cl.setApM(txtApM.getText());
+        cl.setCi(txtCi.getText());
+        anio = DteFechaN.getCalendar().get(Calendar.YEAR);
+        mes = DteFechaN.getCalendar().get(Calendar.MONTH);
+        dia = DteFechaN.getCalendar().get(Calendar.DAY_OF_MONTH);
+        cl.setfN(anio + "-" + (mes + 1) + "-" + dia);
+        cl.setTelf(Integer.parseInt(txtTelf.getText()));
+        cl.setDir(txtDir.getText());
+        cl.setEmail(txtEmail.getText());
+        try {
+            mC.dataUpdate(cl);
+            System.out.println("Se actualizo Correctamente los Datos");
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo actualizar los datos" + e);
+        }
+    }
+    public void delete(){
+        cl = new Cliente();
+        mC = new MetodoCliente();
+         int fila= tabla.getSelectedRow();
+        try {
+            if(fila>=0){
+                cl.setIdCli((int) tabla.getValueAt(fila, 0));
+                mC.dataDelete(cl);
+            }else{
+                JOptionPane.showMessageDialog(null, "No selecciono ninguna fila");
+            }
+        } catch (HeadlessException e) {
+            System.out.println("Algo Salio mal!!!" + e);
+        }
     }
 
     @Override
@@ -638,6 +704,8 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
         if (ae.getSource() == btnSave) {
             getDatos();
             clearTxtSave();
+            actualizarTabla();
+            mostrarDatos(0);
         }
         if (ae.getSource() == btnCancel) {
             clearTxtSave();
@@ -653,8 +721,18 @@ public class VentanaCliente extends JInternalFrame implements ActionListener {
             mostrarDatos(0);
         }
         if (ae.getSource() == btnActualizar) {
-
+            getAndSetActualizar();
+            clearTxtUpdata();
+            actualizarTabla();
+            mostrarDatos(0);
         }
-
+        if (ae.getSource()==btnCancelar){
+             clearTxtUpdata();
+        }
+        if ((ae.getSource()==btnEliminar)||(ae.getSource()==mIElim)){
+            delete();
+            actualizarTabla();
+            mostrarDatos(0);
+        }
     }
 }

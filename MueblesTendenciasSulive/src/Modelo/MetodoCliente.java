@@ -79,11 +79,21 @@ public class MetodoCliente {
 
     public void dataUpdate(Cliente c) {
         try {
-            pst = conn.prepareStatement("UPDATE cliente SET nombre_cliente='"+c.getNom()+"',apellido_paterno='"+c.getApP()+"',apellido_materno='"+c.getApM()+"',ci='"+c.getCi()+"',fecha_nacimiento='"+c.getfN()+"',telefono='"+c.getTelf()+"',direccion='"+c.getDir()+"',email='"+c.getEmail()+"'WHERE id_cliente='"+c.getIdCli()+"'");
-            
+            pst = conn.prepareStatement("UPDATE cliente SET nombre_cliente='" + c.getNom() + "',apellido_paterno='" + c.getApP() + "',apellido_materno='" + c.getApM() + "',ci='" + c.getCi() + "',fecha_nacimiento='" + c.getfN() + "',telefono='" + c.getTelf() + "',direccion='" + c.getDir() + "',email='" + c.getEmail() + "'WHERE id_cliente='" + c.getIdCli() + "'");
+
             pst.executeUpdate();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
+
+    public void dataDelete(Cliente c) {
+        try {
+            pst = conn.prepareStatement("DELETE FROM cliente WHERE id_cliente='" + c.getIdCli() + "'");
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+
 }
