@@ -41,7 +41,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private VentanaPersonal vPersonal;
     private VentanaCliente vCliente;
     private VentanaCarpinteria vCarpinteria;
+    private VentanaPedido vPedido;
     private Carpinteria c;
+
     public MenuPrincipal() {
         super();
         configurarVentana();
@@ -71,7 +73,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         miSalir = new JMenuItem("Salir");
 //        miSalir.setIcon(getResource("/Imagenes/tools.png")));
 
-
         miCerrarSecion = new JMenuItem("Cerrar Cesion");
         mOpciones.add(miSalir);
         mOpciones.add(miCerrarSecion);
@@ -95,6 +96,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 
         mRTransaccion = new JMenu("Registrar Transacciones");
         miPedido = new JMenuItem("Ingresar Pedido");
+        miPedido.addActionListener(this);
         miPedidoMade = new JMenuItem("Ingresar Pedido De Fabricacion");
         mRTransaccion.add(miPedido);
         mRTransaccion.add(miPedidoMade);
@@ -105,19 +107,25 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == miPersonal) {
-                vPersonal = new VentanaPersonal();
-                this.contenedor.add(vPersonal);
-                vPersonal.show();
+            vPersonal = new VentanaPersonal();
+            this.contenedor.add(vPersonal);
+            vPersonal.show();
         }
-        if (ae.getSource()== miCliente){
+        if (ae.getSource() == miCliente) {
             vCliente = new VentanaCliente();
             this.contenedor.add(vCliente);
             vCliente.setVisible(true);
         }
-        if (ae.getSource()==miCarpinteria){
-            vCarpinteria= new VentanaCarpinteria();
+        if (ae.getSource() == miCarpinteria) {
+            vCarpinteria = new VentanaCarpinteria();
             this.contenedor.add(vCarpinteria);
             vCarpinteria.setVisible(true);
+        }
+        if (ae.getSource() == miPedido) {
+            vPedido = new VentanaPedido();
+            this.contenedor.add(vPedido);
+            vPedido.setVisible(true);
+        
         }
     }
 }
