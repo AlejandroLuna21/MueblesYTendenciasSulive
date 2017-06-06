@@ -217,11 +217,11 @@ public class PersonalModificar extends JPanel implements ActionListener {
         this.add(lblTipoPersonal);
         lblSueldo = new JLabel();
         lblSueldo.setText("Sueldo:");
-        lblSueldo.setBounds(1050, 620, 90, 25);
+        lblSueldo.setBounds(1050, 640, 90, 25);
         this.add(lblSueldo);
         lblFechaInicio = new JLabel();
         lblFechaInicio.setText("Inicio de Actividades:");
-        lblFechaInicio.setBounds(1050, 665, 120, 25);
+        lblFechaInicio.setBounds(1050, 695, 120, 25);
         this.add(lblFechaInicio);
 
         txtNombre = new JTextField();
@@ -257,17 +257,17 @@ public class PersonalModificar extends JPanel implements ActionListener {
         txtEmail.setBounds(1200, 475, 200, 25);
         this.add(txtEmail);
         cbxCargo = new JComboBox();
-        cbxCargo.setBounds(1200, 565, 200, 40);
+        cbxCargo.setBounds(1200, 565, 200, 60);
         cbxCargo.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
         cbxCargo.setSelectedItem(null);
         this.add(cbxCargo);
         setDatosCbx();
         cbxCargo.setSelectedItem(null);
         txtSueldo = new JTextField();
-        txtSueldo.setBounds(1200, 620, 200, 25);
+        txtSueldo.setBounds(1200, 640, 200, 25);
         this.add(txtSueldo);
         dcInicio = new JDateChooser();
-        dcInicio.setBounds(1200, 665, 200, 25);
+        dcInicio.setBounds(1200, 695, 200, 25);
         dcInicio.setDateFormatString("yyyy-MM-dd");
         this.add(dcInicio);
 
