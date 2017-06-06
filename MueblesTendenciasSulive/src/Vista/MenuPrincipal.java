@@ -64,7 +64,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         mbPrincipal = new JMenuBar();
         this.setJMenuBar(mbPrincipal);
 
-        contenedor = new JDesktopPane();
+        contenedor = new JDesktopPane() {
+        
+        };
         contenedor.setBackground(Color.DARK_GRAY);
         this.setContentPane(contenedor);
 

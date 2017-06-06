@@ -14,10 +14,9 @@
  */
 package Controlador;
 
-import Modelo.MetodoCliente;
 import Vista.MenuPrincipal;
-import Vista.VentanaCliente;
-
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -29,17 +28,19 @@ public class MueblesTendenciasSulive {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        
-//        
+        UIManager.LookAndFeelInfo[] looks = UIManager.getInstalledLookAndFeels();
+        for (UIManager.LookAndFeelInfo look : looks) {
+            System.out.println(look.getClassName());
+        }
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.getStackTrace();
+        }
+
         MenuPrincipal v2 = new MenuPrincipal();
         v2.setVisible(true);
-        
 
-        
-         Carpinteria carp = new Carpinteria();
-//            carp.inicializar();
-        
     }
-    
+
 }

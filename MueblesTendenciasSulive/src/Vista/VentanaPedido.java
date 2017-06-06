@@ -7,6 +7,7 @@ package Vista;
 
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -32,6 +33,7 @@ public class VentanaPedido extends JInternalFrame {
     private JPanel jpLblyTxt;
     private JLabel lblTitulo;
     private JLabel lblMueble;
+    private JLabel lblTipoM;
     private JLabel lblCant;
     private JLabel lblDesc;
     private JLabel lblEstado;
@@ -39,16 +41,16 @@ public class VentanaPedido extends JInternalFrame {
     private JLabel lblFE;
     private JLabel lblCliente;
     private JLabel lblPersonal;
-    private JLabel lblTipoM;
-    private JTextField txtCant;
-    private JDateChooser dateFP;
-    private JDateChooser dateFE;
-    private JTextField txtDesc;
-    private JComboBox cbxEstado;
-    private JComboBox cbxCliente;
-    private JComboBox cbxPersonal;
     private JComboBox cbxMueble;
     private JComboBox cbxTipoM;
+    private JTextField txtCant;
+    private JTextField txtDesc;
+    private JComboBox cbxEstado;
+    private JDateChooser dateFP;
+    private JDateChooser dateFE;
+    private JComboBox cbxCliente;
+    private JComboBox cbxPersonal;
+    
 
     public VentanaPedido() {
         configurarVentana();
@@ -104,25 +106,62 @@ public class VentanaPedido extends JInternalFrame {
         jpLblyTxt.setLayout(null);
         lblTitulo = new JLabel();
         lblTitulo.setText("Registro de Pedido:");
-        lblTitulo.setBounds(10, 10, 130, 25);
+        lblTitulo.setBounds(50, 10, 130, 25);
         jpLblyTxt.add(lblTitulo);
         lblMueble = new JLabel();
         lblMueble.setText("Mueble:");
-        lblMueble.setBounds(50, 50, 100, 25);
+        lblMueble.setBounds(110, 60, 100, 25);
         jpLblyTxt.add(lblMueble);
+        lblTipoM = new JLabel();
+        lblTipoM.setText("Tipo De Material");
+        lblTipoM.setBounds(110, 130, 100, 25);
+        jpLblyTxt.add(lblTipoM);
         lblCant = new JLabel();
         lblCant.setText("Cantidad:");
-        lblCant.setBounds(50, 100, 100, 25);
+        lblCant.setBounds(110, 190, 100, 25);
         jpLblyTxt.add(lblCant);
-        lblDesc= new JLabel();
+        lblDesc = new JLabel();
         lblDesc.setText("Descripcion:");
-        lblDesc.setBounds(50, 150, 100, 25);
+        lblDesc.setBounds(110, 250, 100, 25);
         jpLblyTxt.add(lblDesc);
         lblEstado = new JLabel();
         lblEstado.setText("Estado:");
-        lblEstado.setBounds(50, 200, 100, 25);
+        lblEstado.setBounds(110, 320, 100, 25);
         jpLblyTxt.add(lblEstado);
-        
+        lblFP = new JLabel();
+//        lblFP.setText("Fecha de Pedido:");
+//        lblFP.setBounds(110, 320, 130, 25);
+//        jpLblyTxt.add(lblFP);
+        lblFE = new JLabel();
+        lblFE.setText("Fecha de Entrega:");
+        lblFE.setBounds(700, 60, 130, 25);
+        jpLblyTxt.add(lblFE);
+        lblCliente = new JLabel();
+        lblCliente.setText("Cliente:");
+        lblCliente.setBounds(700, 130, 100, 25);
+        jpLblyTxt.add(lblCliente);
+
+        cbxMueble = new JComboBox();
+        cbxMueble.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
+        cbxMueble.setBounds(250, 50, 230, 50);
+        jpLblyTxt.add(cbxMueble);
+        cbxTipoM = new JComboBox();
+        cbxTipoM.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
+        cbxTipoM.setBounds(250, 120, 230, 50);
+        jpLblyTxt.add(cbxTipoM);
+        txtCant = new JTextField();
+        txtCant.setBounds(250, 180, 230, 40);
+        jpLblyTxt.add(txtCant);
+        txtDesc = new JTextField();
+        txtDesc.setBounds(250, 240, 230, 40);
+        jpLblyTxt.add(txtDesc);
+        cbxEstado = new JComboBox();
+        cbxEstado.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
+        cbxEstado.setBounds(250, 310, 230, 50);
+        jpLblyTxt.add(cbxEstado);
+//        dateFP = new JDateChooser();
+//        dateFP.setBounds(250, 310, 230, 40);
+//        jpLblyTxt.add(dateFP);
 
         this.add(jpLblyTxt);
 
