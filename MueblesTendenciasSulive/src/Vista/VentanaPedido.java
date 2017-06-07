@@ -5,16 +5,23 @@
  */
 package Vista;
 
+import Modelo.Conexion;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -24,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ALEJANDRO
  */
-public class VentanaPedido extends JInternalFrame {
+public class VentanaPedido extends JInternalFrame implements ActionListener{
 
     private JPanel jpBtn;
     private JButton btnSave;
@@ -60,6 +67,16 @@ public class VentanaPedido extends JInternalFrame {
     private JComboBox cbxCliente;
     private JComboBox cbxPersonal;
 
+    private ArrayList<Integer> idMueble;
+    private ArrayList<Integer> idTipoM;
+    private ArrayList<Integer> idCliente;
+    private ArrayList<Integer> idPersonal;
+    
+    private Conexion cn;
+    private Connection conn;
+    private Statement stm;
+    private ResultSet rs;
+
     public VentanaPedido() {
         configurarVentana();
         inicializarComponentes();
@@ -82,6 +99,7 @@ public class VentanaPedido extends JInternalFrame {
         btnSave = new JButton();
         btnSave.setText("G U A R D A R");
         btnSave.setBounds(10, 50, 480, 100);
+        btnSave.addActionListener(this);
         jpBtn.add(btnSave);
         btnSearch = new JButton();
         btnSearch.setText("B U S C A R");
@@ -105,13 +123,12 @@ public class VentanaPedido extends JInternalFrame {
         jpTable.setBackground(Color.LIGHT_GRAY);
         jpTable.setBounds(15, 15, 1350, 465);
         jpTable.setLayout(null);
-        
+
         txtBuscar = new JTextField();
         txtBuscar.setBorder(BorderFactory.createTitledBorder("ingrese el nombre del cliente del que quiere ver sus pedidos:"));
         txtBuscar.setBounds(250, 20, 900, 60);
         jpTable.add(txtBuscar);
         modelo = new DefaultTableModel();
-        modelo.addColumn("Id_Pedido");
         modelo.addColumn("Nombre");
         modelo.addColumn("Apellido Paterno");
         modelo.addColumn("Apellido Materno");
@@ -175,10 +192,14 @@ public class VentanaPedido extends JInternalFrame {
         cbxMueble.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
         cbxMueble.setBounds(250, 50, 240, 60);
         jpLblyTxt.add(cbxMueble);
+        setCbxMueble();
+        cbxMueble.setSelectedItem(null);
         cbxTipoM = new JComboBox();
         cbxTipoM.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
         cbxTipoM.setBounds(250, 130, 240, 60);
         jpLblyTxt.add(cbxTipoM);
+        setCbxTipoM();
+        cbxTipoM.setSelectedItem(null);
         txtCant = new JTextField();
         txtCant.setBounds(250, 210, 240, 40);
         jpLblyTxt.add(txtCant);
@@ -187,8 +208,11 @@ public class VentanaPedido extends JInternalFrame {
         jpLblyTxt.add(txtDesc);
         cbxEstado = new JComboBox();
         cbxEstado.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
+        cbxEstado.addItem("Entregado");
+        cbxEstado.addItem("No Entregado");
         cbxEstado.setBounds(250, 335, 240, 60);
         jpLblyTxt.add(cbxEstado);
+        cbxEstado.setSelectedItem(null);
         dateFP = new JDateChooser();
         dateFP.setBounds(840, 60, 240, 35);
         jpLblyTxt.add(dateFP);
@@ -199,11 +223,89 @@ public class VentanaPedido extends JInternalFrame {
         cbxCliente.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
         cbxCliente.setBounds(840, 210, 240, 60);
         jpLblyTxt.add(cbxCliente);
+        setCbxCliente();
+        cbxCliente.setSelectedItem(null);
         cbxPersonal = new JComboBox();
         cbxPersonal.setBorder(BorderFactory.createTitledBorder("Seleccione un Opcion:"));
         cbxPersonal.setBounds(840, 300, 240, 60);
         jpLblyTxt.add(cbxPersonal);
+        setCbxPersonal();
+        cbxPersonal.setSelectedItem(null);
         this.add(jpLblyTxt);
 
+    }
+
+    public void setCbxMueble() {
+        idMueble = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM mueble");
+            while (rs.next()){
+                idMueble.add(rs.getInt(1));
+                cbxMueble.addItem(rs.getString(2));
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+    public void setCbxTipoM() {
+        idTipoM = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM tipo_material");
+            while (rs.next()){
+                idTipoM.add(rs.getInt(1));
+                cbxTipoM.addItem(rs.getString(2));
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+     public void setCbxCliente() {
+         idCliente = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM cliente");
+            while (rs.next()){
+                idCliente.add(rs.getInt(1));
+                cbxCliente.addItem(rs.getString(2)+" "+rs.getNString(3)+" "+rs.getString(4));
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+      public void setCbxPersonal() {
+          idPersonal = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM personal WHERE id_tipo_personal=2");
+            while (rs.next()){
+                idPersonal.add(rs.getInt(1));
+                cbxPersonal.addItem(rs.getString(2)+" "+rs.getNString(3)+" "+rs.getString(4));
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource()== btnSave){
+//            for( int dato :idPersonal){
+//                System.out.println(dato);
+//            }
+        }
     }
 }

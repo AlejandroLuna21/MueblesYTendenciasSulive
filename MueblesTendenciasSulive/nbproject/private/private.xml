@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Controlador/Pedido.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Modelo/MetodoPedido.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Vista/VentanaCarpinteria.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Modelo/Conexion.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Modelo/MetodoPersonal.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Vista/VentanaPedido.java</file>
+            <file>file:/C:/Users/ALEJANDRO/Documents/RepositorioNuevo/MueblesYtendenciasSulive/MueblesTendenciasSulive/src/Vista/PersonalGuardar.java</file>
+        </group>
     </open-files>
 </project-private>
