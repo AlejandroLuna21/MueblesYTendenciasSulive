@@ -155,11 +155,11 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         this.add(lblTipoPersonal);
         lblSueldo = new JLabel();
         lblSueldo.setText("Sueldo:");
-        lblSueldo.setBounds(650, 620, 90, 25);
+        lblSueldo.setBounds(650, 640, 90, 25);
         this.add(lblSueldo);
         lblFechaInicio = new JLabel();
         lblFechaInicio.setText("Inicio de Actividades:");
-        lblFechaInicio.setBounds(650, 665, 120, 25);
+        lblFechaInicio.setBounds(650, 680, 120, 25);
         this.add(lblFechaInicio);
         lblFechaFin = new JLabel();
 
@@ -194,16 +194,16 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         txtEmail.setBounds(800, 475, 200, 25);
         this.add(txtEmail);
         cbxCargo = new JComboBox();
-        cbxCargo.setBounds(800, 565, 200, 40);
+        cbxCargo.setBounds(800, 565, 200, 60);
         cbxCargo.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
         setDatosCbx();
         cbxCargo.setSelectedItem(null);
         this.add(cbxCargo);
         txtSueldo = new JTextField();
-        txtSueldo.setBounds(800, 620, 200, 25);
+        txtSueldo.setBounds(800, 640, 200, 25);
         this.add(txtSueldo);
         dcInicio = new JDateChooser();
-        dcInicio.setBounds(800, 665, 200, 25);
+        dcInicio.setBounds(800, 680, 200, 25);
         dcInicio.setDateFormatString("yyyy-MM-dd");
         this.add(dcInicio);
 //        dcFin = new JDateChooser();
@@ -223,6 +223,7 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         this.add(btnCancelar);
     }
 
+    
     public void getDatos() {
         p1 = new Personal();
         mP1 = new MetodoPersonal();
@@ -250,7 +251,7 @@ public class PersonalGuardar extends JPanel implements ActionListener {
         p1.setIdTipPer((cbxCargo.getSelectedIndex() + 1));//Pendiente
         try {
             mP1.guardarDate(p1);
-            JOptionPane.showMessageDialog(null, "Se Guardo Correctamente los Datos");
+            System.out.println("Se Guardo Correctamente los Datos");
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
         }
@@ -297,17 +298,11 @@ public class PersonalGuardar extends JPanel implements ActionListener {
             clearComponentes();
             pe = new PersonalEliminar();
             pe.actualizarTabla();
-//            pe.mostrarDatos();
-//            pe.removeAll();
-//            pe.show();
-//            p.updateUI();
-//            pe.updateUI();
-//            pe.update(grphcs);
-//            pe.modelo.fireTableChanged
+
 
         }
         if (ae.getSource() == btnCancelar) {
-//            clearComponentes();
+            clearComponentes();
             pe = new PersonalEliminar();
             pe.actualizarTabla();
         }
