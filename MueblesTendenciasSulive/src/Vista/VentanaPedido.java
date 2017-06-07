@@ -5,7 +5,9 @@
  */
 package Vista;
 
+import Controlador.Pedido;
 import Modelo.Conexion;
+import Modelo.MetodoPedido;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -31,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ALEJANDRO
  */
-public class VentanaPedido extends JInternalFrame implements ActionListener{
+public class VentanaPedido extends JInternalFrame implements ActionListener {
 
     private JPanel jpBtn;
     private JButton btnSave;
@@ -71,7 +74,14 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
     private ArrayList<Integer> idTipoM;
     private ArrayList<Integer> idCliente;
     private ArrayList<Integer> idPersonal;
-    
+    private int anio;
+    private int mes;
+    private int dia;
+    private Object[] datos;
+
+    private Pedido p;
+    private MetodoPedido mp;
+
     private Conexion cn;
     private Connection conn;
     private Statement stm;
@@ -104,6 +114,7 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
         btnSearch = new JButton();
         btnSearch.setText("B U S C A R");
         btnSearch.setBounds(10, 200, 480, 100);
+        btnSearch.addActionListener(this);
         jpBtn.add(btnSearch);
         btnModify = new JButton();
         btnModify.setText("M O D I F I C A R");
@@ -140,7 +151,7 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
         scroll = new JScrollPane(tabla);
         scroll.setBounds(250, 80, 900, 350);
         jpTable.add(scroll);
-
+        mostrarDatos(null);
         this.add(jpTable);
 
         jpLblyTxt = new JPanel();
@@ -208,8 +219,8 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
         jpLblyTxt.add(txtDesc);
         cbxEstado = new JComboBox();
         cbxEstado.setBorder(BorderFactory.createTitledBorder("Seleccione una Opcion:"));
-        cbxEstado.addItem("Entregado");
         cbxEstado.addItem("No Entregado");
+        cbxEstado.addItem("Entregado");
         cbxEstado.setBounds(250, 335, 240, 60);
         jpLblyTxt.add(cbxEstado);
         cbxEstado.setSelectedItem(null);
@@ -242,15 +253,16 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
             conn = cn.getConnection();
             stm = conn.createStatement();
             rs = stm.executeQuery("SELECT * FROM mueble");
-            while (rs.next()){
+            while (rs.next()) {
                 idMueble.add(rs.getInt(1));
                 cbxMueble.addItem(rs.getString(2));
             }
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
+
     public void setCbxTipoM() {
         idTipoM = new ArrayList<>();
         try {
@@ -258,54 +270,139 @@ public class VentanaPedido extends JInternalFrame implements ActionListener{
             conn = cn.getConnection();
             stm = conn.createStatement();
             rs = stm.executeQuery("SELECT * FROM tipo_material");
-            while (rs.next()){
+            while (rs.next()) {
                 idTipoM.add(rs.getInt(1));
                 cbxTipoM.addItem(rs.getString(2));
             }
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error" + e);
-        }
-    }
-     public void setCbxCliente() {
-         idCliente = new ArrayList<>();
-        try {
-            cn = new Conexion();
-            conn = cn.getConnection();
-            stm = conn.createStatement();
-            rs = stm.executeQuery("SELECT * FROM cliente");
-            while (rs.next()){
-                idCliente.add(rs.getInt(1));
-                cbxCliente.addItem(rs.getString(2)+" "+rs.getNString(3)+" "+rs.getString(4));
-            }
-            
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error" + e);
-        }
-    }
-      public void setCbxPersonal() {
-          idPersonal = new ArrayList<>();
-        try {
-            cn = new Conexion();
-            conn = cn.getConnection();
-            stm = conn.createStatement();
-            rs = stm.executeQuery("SELECT * FROM personal WHERE id_tipo_personal=2");
-            while (rs.next()){
-                idPersonal.add(rs.getInt(1));
-                cbxPersonal.addItem(rs.getString(2)+" "+rs.getNString(3)+" "+rs.getString(4));
-            }
-            
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
 
+    public void setCbxCliente() {
+        idCliente = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM cliente");
+            while (rs.next()) {
+                idCliente.add(rs.getInt(1));
+                cbxCliente.addItem(rs.getString(2) + " " + rs.getNString(3) + " " + rs.getString(4));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+
+    public void setCbxPersonal() {
+        idPersonal = new ArrayList<>();
+        try {
+            cn = new Conexion();
+            conn = cn.getConnection();
+            stm = conn.createStatement();
+            rs = stm.executeQuery("SELECT * FROM personal WHERE id_tipo_personal=2");
+            while (rs.next()) {
+                idPersonal.add(rs.getInt(1));
+                cbxPersonal.addItem(rs.getString(2) + " " + rs.getNString(3) + " " + rs.getString(4));
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+    }
+
+    public void getData() {
+        p = new Pedido();
+        mp = new MetodoPedido();
+        try {
+            p.setIdMueble(idMueble.get(cbxMueble.getSelectedIndex()));
+            p.setIdTipoMat(idTipoM.get(cbxTipoM.getSelectedIndex()));
+            p.setCatidad(Integer.parseInt(txtCant.getText()));
+            p.setDescri(txtDesc.getText());
+            p.setEstado(cbxEstado.getSelectedIndex());
+            anio = dateFP.getCalendar().get(Calendar.YEAR);
+            mes = dateFP.getCalendar().get(Calendar.MONTH);
+            dia = dateFP.getCalendar().get(Calendar.DAY_OF_MONTH);
+            p.setFechaP(anio + "-" + (mes + 1) + "-" + dia);
+            anio = dateFE.getCalendar().get(Calendar.YEAR);
+            mes = dateFE.getCalendar().get(Calendar.MONTH);
+            dia = dateFE.getCalendar().get(Calendar.DAY_OF_MONTH);
+            p.setFechaE(anio + "-" + (mes + 1) + "-" + dia);
+            p.setIdCli(idCliente.get(cbxCliente.getSelectedIndex()));
+            p.setIdPer(idPersonal.get(cbxPersonal.getSelectedIndex()));
+
+            mp.dataSave(p);
+            System.out.println("Se Guardo Correctamente los Datos");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo guardar los datos" + e);
+        }
+    }
+
+    public void mostrarDatos(String nombreCli) {
+        cn = new Conexion();
+        conn = cn.getConnection();
+        String consulta;
+        if (nombreCli == null) {
+            consulta = "SELECT cliente.nombre_cliente,cliente.apellido_paterno,cliente.apellido_materno,mueble.nombre,tipo_material.tipo_material,cantidad,estado FROM cliente\n"
+                    + "INNER JOIN pedido ON (cliente.id_cliente=pedido.id_cliente)\n"
+                    + "INNER JOIN mueble ON (pedido.id_mueble=mueble.id_mueble)\n"
+                    + "INNER JOIN tipo_material ON (pedido.id_tipo_material=tipo_material.id_tipo_material)";
+        } else {
+            consulta = "SELECT cliente.nombre_cliente,cliente.apellido_paterno,cliente.apellido_materno,mueble.nombre,tipo_material.tipo_material,cantidad,estado FROM cliente\n"
+                    + "INNER JOIN pedido ON (cliente.id_cliente=pedido.id_cliente)\n"
+                    + "INNER JOIN mueble ON (pedido.id_mueble=mueble.id_mueble)\n"
+                    + "INNER JOIN tipo_material ON (pedido.id_tipo_material=tipo_material.id_tipo_material)\n"
+                    + "WHERE cliente.nombre_cliente LIKE '" + nombreCli + "%'";
+        }
+
+        datos = new Object[7];
+        try {
+            stm = conn.createStatement();
+            rs = stm.executeQuery(consulta);
+            while (rs.next()) {
+                datos[0] = (rs.getString(1));
+                datos[1] = (rs.getString(2));
+                datos[2] = (rs.getString(3));
+                datos[3] = (rs.getString(4));
+                datos[4] = (rs.getString(5));
+                datos[5] = (rs.getInt(6));
+                datos[6] = (rs.getInt(7));
+
+                modelo.addRow(datos);
+            }
+            System.out.println("Inner join exitosa!!!!");
+            tabla.setModel(modelo);
+        } catch (SQLException e) {
+
+            System.out.println("Ocurrio un error al obtener los datos de personal" + e);
+        }
+    }
+    public void actualizarTabla() {
+        int sizeModel = modelo.getRowCount();
+        System.out.println("Aqui no llego" + sizeModel);
+        for (int i = 0; i < sizeModel; i++) {
+            modelo.removeRow(0);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource()== btnSave){
+        if (ae.getSource() == btnSave) {
+            getData();
+            actualizarTabla();
+            mostrarDatos(null);
 //            for( int dato :idPersonal){
 //                System.out.println(dato);
 //            }
+        }
+        if ((ae.getSource() == btnSearch)&& (!txtBuscar.getText().equals(""))) {
+            actualizarTabla();
+            mostrarDatos(txtBuscar.getText());
+            txtBuscar.setText("");
         }
     }
 }

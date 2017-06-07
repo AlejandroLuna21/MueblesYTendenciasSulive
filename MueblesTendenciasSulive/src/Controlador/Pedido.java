@@ -16,11 +16,11 @@ public class Pedido {
     private String fechaP;
     private String fechaE;
     private String descri;
-    private boolean estado;
+    private int estado;
     private int idPer;
     private int idCli;
     private int idMueble;
-    private int tipoMat;
+    private int idTipoMat;
 
     public Pedido() {
 
@@ -66,11 +66,11 @@ public class Pedido {
         this.descri = descri;
     }
 
-    public boolean isEstado() {
+    public int isEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 
@@ -98,12 +98,12 @@ public class Pedido {
         this.idMueble = idMueble;
     }
 
-    public int getTipoMat() {
-        return tipoMat;
+    public int getIdTipoMat() {
+        return idTipoMat;
     }
 
-    public void setTipoMat(int tipoMat) {
-        this.tipoMat = tipoMat;
+    public void setIdTipoMat(int tipoMat) {
+        this.idTipoMat = tipoMat;
     }
 
 }
